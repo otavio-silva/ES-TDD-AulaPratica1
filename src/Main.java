@@ -6,5 +6,6 @@ public class Main
 		test.testEquality();
 		test.testMultiplication();
 		test.testFrancMultiplication();
+		test.testCurrency();
 	}
 }
