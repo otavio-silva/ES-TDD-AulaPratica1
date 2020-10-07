@@ -1,16 +1,20 @@
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
-class Money
+abstract class Money
 {
 	protected int amount;
-	
 	public boolean equals(Object object)
 	{
 		Money money = (Money) object;
-		return amount == money.amount;
+		return this.amount == money.amount && getClass().equals(money.getClass());
 	}
+	static Dollar dollar(int amount)
+	{
+		return new Dollar(amount);
+	}
+	static Money franc(int amount)
+	{
+		return new Franc(amount);
+	}
+	abstract Money times(int multiplier); 
 }
 
 class Dollar extends Money
@@ -20,7 +24,7 @@ class Dollar extends Money
 	{
 		this.amount = amount;
 	}
-	Dollar times(int multiplier)
+	Money times(int multiplier)
 	{
 		return new Dollar(this.amount * multiplier);
 	}
@@ -28,7 +32,7 @@ class Dollar extends Money
 	public boolean equals(Object object)
 	{
 		Dollar dollar = (Dollar) object;
-		return amount == dollar.amount;
+		return this.amount == dollar.amount;
 	 }
 }
 
@@ -39,7 +43,7 @@ class Franc extends Money
 	{
 		this.amount = amount;
 	}
-	Franc times(int multiplier)
+	Money times(int multiplier)
 	{
 		return new Franc(amount * multiplier);
 	}
@@ -49,26 +53,4 @@ class Franc extends Money
 		Franc franc = (Franc) object;
 		return amount == franc.amount;
 	}
-}
-
-public void testMultiplication()
-{
-	Dollar five = new Dollar(5);
-	assertEquals(new Dollar(10), five.times(2));
-	assertEquals(new Dollar(15), five.times(3));
- }
-
-public void testEquality()
-{
-	assertTrue(new Dollar(5).equals(new Dollar(5)));
-	assertFalse(new Dollar(5).equals(new Dollar(6)));
-	assertTrue(new Franc(5).equals(new Franc(5)));
-	assertFalse(new Franc(5).equals(new Franc(6)));
-}
-
-public void testFrancMultiplication()
-{
-	Franc five = new Franc(5);
-	assertEquals(new Franc(10), five.times(2));
-	assertEquals(new Franc(15), five.times(3));
 }
