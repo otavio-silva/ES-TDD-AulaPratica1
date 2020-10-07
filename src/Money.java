@@ -1,14 +1,14 @@
-abstract class Money
+class Money
 {
 	protected int amount;
 	protected String currency;
 	static Money dollar(int amount)
 	{
-		return new Dollar(amount, "USD");
+		return new Money(amount, "USD");
 	}
 	static Money franc(int amount)
 	{
-		return new Franc(amount, "CHF");
+		return new Money(amount, "CHF");
 	}
 	Money(int amount, String  currency)
 	{
@@ -24,31 +24,8 @@ abstract class Money
 	{
 		return this.currency;
 	}
-	abstract Money times(int multiplier);
-}
-
-class Dollar extends Money
-{
-	private int amount;
-	Dollar(int amount, String currency)
-	{
-		super(amount, currency);
-	}
 	Money times(int multiplier)
 	{
-		return Money.dollar(this.amount * multiplier);
-	}
-}
-
-class Franc extends Money
-{
-	private int amount;
-	Franc(int amount, String currency)
-	{
-		super(amount, currency);
-	}
-	Money times(int multiplier)
-	{
-		return Money.franc(amount * multiplier);
+		return new Money(amount * multiplier, this.currency);
 	}
 }

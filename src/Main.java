@@ -5,7 +5,6 @@ public class Main
 		var test = new Test();
 		test.testEquality();
 		test.testMultiplication();
-		test.testFrancMultiplication();
 		test.testCurrency();
 	}
 }
